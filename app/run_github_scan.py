@@ -20,16 +20,7 @@ print("GitHub scan completed.")
 print(f"JSON report: {json_file}")
 print(f"Markdown report: {md_file}")
 
-analysis = analyze_report()
-
-from pathlib import Path
-
-ai_file = Path("reports/ai_analysis.md")
-
-ai_file.write_text(
-    "# RepoGuard AI — AI Analysis\n\n" + analysis,
-    encoding="utf-8"
-)
+ai_file = analyze_report()
 
 print("AI analysis completed.")
 print(f"AI report: {ai_file}")

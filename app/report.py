@@ -15,7 +15,7 @@ def save_report(result, output_dir="reports"):
     )
 
     lines = [
-        f"# RepoGuard AI Report",
+        "# RepoGuard AI Report",
         "",
         f"**Repository:** {result['repository']}",
         f"**Total files:** {result['total_files']}",
@@ -28,15 +28,34 @@ def save_report(result, output_dir="reports"):
 
     if not result["findings"]:
         lines.append("No issues detected by the current scanner.")
+
     else:
         for i, finding in enumerate(result["findings"], start=1):
+
             lines.append(
                 f"### {i}. {finding['severity'].upper()}"
             )
-            lines.append(f"- {finding['issue']}")
+
+            lines.append(
+                f"- **Category:** {finding.get('category', 'general')}"
+            )
+
+            lines.append(
+                f"- **Issue:** {finding['issue']}"
+            )
+
+            if "file" in finding:
+                lines.append(
+                    f"- **File:** `{finding['file']}`"
+                )
+
+            if "line" in finding:
+                lines.append(
+                    f"- **Line:** {finding['line']}"
+                )
 
             if "files" in finding:
-                lines.append("- Files:")
+                lines.append("- **Files:**")
                 for file in finding["files"]:
                     lines.append(f"  - `{file}`")
 
